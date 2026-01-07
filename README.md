@@ -1,4 +1,5 @@
 # Shope Core Package
+![License](https://img.shields.io/badge/License-MIT-green.svg)
 
 The Shope Core Package is a Laravel package that provides essential functionality for the Shope microservice. This package includes configuration, middleware, and helper utilities to streamline development.
 
