@@ -4,17 +4,28 @@ The Shope Core Package is a Laravel package that provides essential functionalit
 
 ## Installation
 
-1. Install the package via Composer:
+1. Add the Private Repository in Your Laravel Project:
    ```bash
-   composer require your-vendor/shope-core
+   "repositories": [
+      {
+         "type": "vcs",
+         "url": "https://github.com/sheikh-alzaf/shope-core"
+      }
+   ]
+
+   ```
+2. Install the package via Composer:
+   ```bash
+   composer require shope/core
    ```
 
-2. Publish the configuration file:
+3. Publish the configuration file:
    ```bash
-   php artisan vendor:publish --provider="YourVendor\ShopeCore\ShopeCommonServiceProvider"
+   php artisan vendor:publish --tag=config
+
    ```
 
-3. Add the required environment variables to your `.env` file:
+4. Add the required environment variables to your `.env` file:
    ```env
    SHOPE_API_KEY=your_api_key
    SHOPE_API_SECRET=your_api_secret
@@ -22,17 +33,25 @@ The Shope Core Package is a Laravel package that provides essential functionalit
 
 ## Configuration
 
-The package configuration file is located at `config/shopecore.php`. You can customize the following settings:
+The package configuration file is located at `config/shope-core.php`. You can customize the following settings:
 
-- `api_key`: The API key for authentication.
-- `api_secret`: The API secret for authentication.
+```bash
+   return [
+      'require_api_credentials' => true,
+      'enable_ip_whitelist' => false,
+      'secret_pepper'    => env("secret_pepper","nexzan"),
+      'models' => [
+         'api_key' => \App\Models\ApiKey::class,
+      ],
+   ];
+```
 
 ## Middleware
 
 The package includes the `GatewayAuth` middleware, which can be used to authenticate requests. To use this middleware, add it to your route or controller:
 
 ```php
-use YourVendor\ShopeCore\Middleware\GatewayAuth;
+use Shope\Core\Middleware\GatewayAuth;
 
 Route::middleware([GatewayAuth::class])->group(function () {
     // Define your routes here
