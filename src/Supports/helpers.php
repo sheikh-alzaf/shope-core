@@ -17,33 +17,11 @@ if (! function_exists('newUuid')) {
 }
 
 if (! function_exists('ResponseSuccess')) {
-    function ResponseSuccess($data, $message = null, $statusCode = Response::HTTP_OK)
+    function ResponseSuccess($data, $message = null, $jsonStatus = Response::HTTP_OK)
     {
-        $items = $data;
-        $meta  = null;
-
-        if (isset($data['meta'])) {
-            $meta = $data['meta'];
-        }
-
-        if (isset($data['items'])) {
-            $items = $data['items'];
-        }
-
-        $response = [
-            'success'  => true,
-            'message'  => __($message ?? 'Success'),
-            'resource' => $items,
-        ];
-
-        if ($meta !== null) {
-            $response['meta'] = $meta;
-        }
-
-        return response()->json($response, $statusCode);
+        return response()->json(['success' => true, 'data' => $data, 'message' => $message], $jsonStatus);
     }
 }
-
 
 if (! function_exists('ResponseError')) {
     function ResponseError($message = null, $jsonStatus = Response::HTTP_INTERNAL_SERVER_ERROR, $throwable = null, $resource = null)
@@ -55,7 +33,6 @@ if (! function_exists('ResponseError')) {
             } else {
                 Log::error($throwable->getMessage());
             }
-
         } else {
             $message = __($message ?? 'Something went wrong');
             Log::error($message);
@@ -76,7 +53,7 @@ if (! function_exists('ResponseError')) {
         return response()->json([
             'success'  => false,
             'message'  => $message,
-            'resource' => $resource,
+            'status'   => $jsonStatus
         ], $jsonStatus);
     }
 }
