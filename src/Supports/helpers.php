@@ -17,9 +17,30 @@ if (! function_exists('newUuid')) {
 }
 
 if (! function_exists('ResponseSuccess')) {
-    function ResponseSuccess($data, $message = null, $jsonStatus = Response::HTTP_OK)
+    function ResponseSuccess($data, $message = null, $statusCode = Response::HTTP_OK)
     {
-        return response()->json(['success' => true, 'data' => $data, 'message' => $message], $jsonStatus);
+        $items = $data;
+        $meta  = null;
+
+        if (isset($data['meta'])) {
+            $meta = $data['meta'];
+        }
+
+        if (isset($data['items'])) {
+            $items = $data['items'];
+        }
+
+        $response = [
+            'success'  => true,
+            'message'  => __($message ?? 'Success'),
+            'resource' => $items,
+        ];
+
+        if ($meta !== null) {
+            $response['meta'] = $meta;
+        }
+
+        return response()->json($response, $statusCode);
     }
 }
 
@@ -53,7 +74,7 @@ if (! function_exists('ResponseError')) {
         return response()->json([
             'success'  => false,
             'message'  => $message,
-            'status'   => $jsonStatus
+            'resource' => $resource,
         ], $jsonStatus);
     }
 }
@@ -80,5 +101,3 @@ if (! function_exists('paginateMetaData')) {
         ];
     }
 }
-
-
