@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Traits;
+namespace Shope\Core\Traits;
 
 use Illuminate\Support\Facades\Storage;
 
-trait MediaUpload
+trait MediaUploadTrait
 {
     private $default_disk;
 

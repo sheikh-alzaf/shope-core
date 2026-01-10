@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Traits;
+namespace Shope\Core\Traits;
 
-trait FormatMediaUrl
+trait FormatMediaUrlTrait
 {
     private $default_cdn;
 
