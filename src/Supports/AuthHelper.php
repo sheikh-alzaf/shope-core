@@ -24,9 +24,9 @@ class AuthHelper
         return request()->header('x-user-type');
     }
 
-    public function shopId(): ?string
+    public function vendorId(): ?string
     {
-        return request()->header('x-user-shop-id') ?? null;
+        return request()->header('x-vendor-id') ?? null;
     }
 
     public function user()
@@ -36,7 +36,7 @@ class AuthHelper
             'email' => $this->email(),
             'name' => $this->name(),
             'type' => $this->type(),
-            'shop_id' => $this->shopId(),
+            'vendor_id' => $this->vendorId(),
         ];
     }
 }
