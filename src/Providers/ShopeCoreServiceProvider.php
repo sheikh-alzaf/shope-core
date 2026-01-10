@@ -3,6 +3,7 @@
 namespace Shope\Core\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Shope\Core\Supports\AuthHelper;
 
 class ShopeCoreServiceProvider extends ServiceProvider
 {
@@ -19,5 +20,9 @@ class ShopeCoreServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(
             __DIR__.'/../config/shope-core.php', 'shope-core'
         );
+
+        $this->app->singleton('authUser', function () {
+            return new AuthHelper();
+        });
     }
 }
