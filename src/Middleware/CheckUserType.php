@@ -17,9 +17,11 @@ class CheckUserType
      */
     public function handle(Request $request, Closure $next, string $type)
     {
-        return $next($request);
         
         $userType = Auth::type();
+
+        if(!$userType)
+            return ResponseError("Unauthorized: User type not found", 401);
 
         if ($userType !== $type) {
             return ResponseError("Unauthorized: Only {$type} users are allowed", 403);
