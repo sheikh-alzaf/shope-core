@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Auth\AuthenticationException;
 
-class GatewayAuth
+class KeyAuthMiddleware
 {
     public function handle(Request $request, Closure $next)
     {
